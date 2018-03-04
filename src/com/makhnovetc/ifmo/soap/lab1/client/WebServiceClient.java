@@ -12,9 +12,13 @@ import java.util.List;
 public class WebServiceClient {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        //System.out.println("Hello! Check service type: 1-standalone, 2-J2EE");
-        //String servType = br.readLine();
-        PersonWebService service = new PersonService().getPersonWebServicePort();
+
+        System.out.println("Hello! Check service type: 1-standalone, 2-J2EE");
+        String servType = br.readLine();
+        PersonWebService service = servType=="1" ? new PersonService().getPersonWebServicePort()
+                : new PersonService(new URL("http://desktop-pfbom38:8080/WebServiceSOAPJ2EE-1.0-SNAPSHOT/PersonService")).getPersonWebServicePort();
+        //PersonWebService service = new PersonService().getPersonWebServicePort();
+        //PersonWebService service = new PersonService(new URL("http://desktop-pfbom38:8080/WebServiceSOAPJ2EE-1.0-SNAPSHOT/PersonService")).getPersonWebServicePort();
         System.out.println("Please, write your query...");
         System.out.println("id-for column id");
         System.out.println("fn-for column name");
