@@ -1,4 +1,4 @@
-package com.makhnovetc.ifmo.soap.lab1.client;
+package com.makhnovetc.ifmo.soap.client;
 import com.makhnovetc.ifmo.soap.lab2.Person;
 import com.makhnovetc.ifmo.soap.lab2.PersonService;
 import com.makhnovetc.ifmo.soap.lab2.PersonWebService;
@@ -11,6 +11,7 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 public class WebServiceClient {
+
     public static void main(String[] args) throws IOException {
          BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
