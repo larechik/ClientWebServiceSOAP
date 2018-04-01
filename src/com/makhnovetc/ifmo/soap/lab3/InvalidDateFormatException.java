@@ -19,14 +19,14 @@ public class InvalidDateFormatException
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private InvalidDateFormatExceptionBean faultInfo;
+    private ExceptionBean faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public InvalidDateFormatException(String message, InvalidDateFormatExceptionBean faultInfo) {
+    public InvalidDateFormatException(String message, ExceptionBean faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class InvalidDateFormatException
      * @param cause
      * @param message
      */
-    public InvalidDateFormatException(String message, InvalidDateFormatExceptionBean faultInfo, Throwable cause) {
+    public InvalidDateFormatException(String message, ExceptionBean faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class InvalidDateFormatException
     /**
      * 
      * @return
-     *     returns fault bean: com.makhnovetc.ifmo.soap.lab3.InvalidDateFormatExceptionBean
+     *     returns fault bean: com.makhnovetc.ifmo.soap.lab3.ExceptionBean
      */
-    public InvalidDateFormatExceptionBean getFaultInfo() {
+    public ExceptionBean getFaultInfo() {
         return faultInfo;
     }
 

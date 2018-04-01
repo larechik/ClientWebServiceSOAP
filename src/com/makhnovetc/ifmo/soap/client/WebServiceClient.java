@@ -10,11 +10,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 public class WebServiceClient {
 
-    public static void main(String[] args) throws IOException, InvalidDateFormatException, NullFieldException {
+    public static void main(String[] args) throws MalformedURLException, InvalidFieldException, NullFieldException {
          BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Hello! Check service type: 1-standalone, 2-J2EE");
-        String servType = br.readLine();
+        String servType = null;
+        try {
+            servType = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         PersonWebService service = null;
         switch (servType) {
             case "1":
@@ -27,7 +32,12 @@ public class WebServiceClient {
 
         //PersonWebService service = new PersonService(new URL("http://desktop-pfbom38:8080/WebServiceSOAPJ2EE-1.0-SNAPSHOT/PersonService")).getPersonWebServicePort();
         System.out.println("Select the type of action: 1 - select; 2 - insert; 3 - update; 4 - delete");
-        String actionType = br.readLine();
+        String actionType = null;
+        try {
+            actionType = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         switch (actionType) {
             case "1":
                 findPersons(service,br);
@@ -60,7 +70,7 @@ public class WebServiceClient {
                 ", surname:" + p.getSurname() + ", dob:" + p.getDob() + ", sex:" + p.getSex());
     }
 
-    private static void findPersons(PersonWebService service, BufferedReader br) throws IOException, InvalidDateFormatException, NullFieldException {
+    private static void findPersons(PersonWebService service, BufferedReader br) {
         System.out.println("Please, write your query...");
         System.out.println("id-for column id");
         System.out.println("fn-for column name");
@@ -71,7 +81,12 @@ public class WebServiceClient {
         System.out.println("Example:");
         System.out.println("fn=Alexandr");
         System.out.println("Enter your request with delim \",\"");
-        String readreq = br.readLine();
+        String readreq = null;
+        try {
+            readreq = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String req[] = readreq.split(",");
         String id = "", name = "", surname = "", middlename = "", dob = "", sex = "";
         for (int j = 0; j < req.length; j++) {
@@ -98,7 +113,14 @@ public class WebServiceClient {
             }
         }
 
-        List<Person> persons = service.findPeople(id,name,middlename,surname,dob,sex);
+        List<Person> persons = null;
+        try {
+            persons = service.findPeople(id,name,middlename,surname,dob,sex);
+        } catch (InvalidDateFormatException e) {
+            e.printStackTrace();
+        } catch (NullFieldException e) {
+            e.printStackTrace();
+        }
         for (Person person : persons) {
             System.out.println("Person{" + "id=" + person.getId()+ ", name=" + person.getName() +
                     ", middle name=" + person.getMiddlename() +", surname=" + person.getSurname() +
@@ -107,7 +129,7 @@ public class WebServiceClient {
         System.out.println("Total persons: " + persons.size());
     }
 
-    private static void insertPerson(PersonWebService service, BufferedReader br) throws IOException, NullFieldException {
+    private static void insertPerson(PersonWebService service, BufferedReader br) {
         boolean test = true;
         while (test) {
             System.out.println("Please, write your query...");
@@ -119,7 +141,12 @@ public class WebServiceClient {
             System.out.println("Example:");
             System.out.println("fn=Alexandr");
             System.out.println("Enter your request with delim \",\"");
-            String readreq = br.readLine();
+            String readreq = null;
+            try {
+                readreq = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             String req[] = readreq.split(",");
             String name = "", surname = "", middlename = "", dob = "", sex = "";
             for (int j = 0; j < req.length; j++) {
@@ -149,11 +176,16 @@ public class WebServiceClient {
                 System.out.println("You did not specify all the options");
             }
             System.out.println("name="+name+" middlename="+middlename+" surname="+surname+" dob="+dob+" sex="+sex);
-            int id= service.insertPerson(name,middlename,surname,dob,sex);
+            int id= 0;
+            try {
+                id = service.insertPerson(name,middlename,surname,dob,sex);
+            } catch (NullFieldException e) {
+                e.printStackTrace();
+            }
             System.out.println("id = "+id);
         }
     }
-    private static void updatePerson(PersonWebService service, BufferedReader br) throws IOException, NullFieldException {
+    private static void updatePerson(PersonWebService service, BufferedReader br) throws InvalidFieldException, NullFieldException {
         boolean test = true;
         while (test) {
             System.out.println("Please, enter new fields values and the id of the line you want...");
@@ -166,7 +198,12 @@ public class WebServiceClient {
             System.out.println("Example:");
             System.out.println("fn=Alexandr");
             System.out.println("Enter your request with delim \",\"");
-            String readreq = br.readLine();
+            String readreq = null;
+            try {
+                readreq = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             String req[] = readreq.split(",");
             String id = "", name = "", surname = "", middlename = "", dob = "", sex = "";
             for (int j = 0; j < req.length; j++) {
@@ -198,22 +235,31 @@ public class WebServiceClient {
                 System.out.println("name=" + name + " middlename=" + middlename + " surname=" + surname + " dob=" + dob + " sex=" + sex);
                 System.out.println("You did not specify all the options");
             }
-            String status = updatePerson(service,id,name,middlename,surname,dob,sex);
+            String status = null;
+
+                status = updatePerson(service,id,name,middlename,surname,dob,sex);
             System.out.println("status: " + status);
         }
     }
-    public static String updatePerson(PersonWebService service,String id,String name,String middlename,String surname,String dob,String sex) throws NullFieldException {
-        return service.updatePerson(id, name, middlename, surname, dob, sex);
+    public static String updatePerson(PersonWebService service,String id,String name,String middlename,String surname,String dob,String sex) throws InvalidFieldException, NullFieldException {
+            return service.updatePerson(id, name, middlename, surname, dob, sex);
     }
-    private static void deletePerson(PersonWebService service, BufferedReader br) throws IOException, NullFieldException {
+    private static void deletePerson(PersonWebService service, BufferedReader br) throws InvalidFieldException, NullFieldException {
         System.out.println("Please, enter the id of the line you want deleted...");
-        String delId = br.readLine();
-        String status = deletePerson(service,delId);
+        String delId = null;
+        try {
+            delId = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String status = null;
+            status = deletePerson(service,delId);
         System.out.println("status: " + status);
     }
 
-    public static String deletePerson(PersonWebService service, String id) throws NullFieldException {
-        return service.deletePerson(id);
+    public static String deletePerson(PersonWebService service, String id) throws InvalidFieldException, NullFieldException {
+            return service.deletePerson(id);
+
     }
 
 

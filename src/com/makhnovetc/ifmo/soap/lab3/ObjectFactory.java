@@ -37,6 +37,7 @@ public class ObjectFactory {
     private final static QName _UpdatePersonResponse_QNAME = new QName("http://soap.ifmo.makhnovetc.com/", "updatePersonResponse");
     private final static QName _FindPeopleResponse_QNAME = new QName("http://soap.ifmo.makhnovetc.com/", "findPeopleResponse");
     private final static QName _GetPersonsQueryResponse_QNAME = new QName("http://soap.ifmo.makhnovetc.com/", "getPersonsQueryResponse");
+    private final static QName _InvalidFieldException_QNAME = new QName("http://soap.ifmo.makhnovetc.com/", "InvalidFieldException");
     private final static QName _UpdatePerson_QNAME = new QName("http://soap.ifmo.makhnovetc.com/", "updatePerson");
 
     /**
@@ -71,11 +72,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NullFieldExceptionBean }
+     * Create an instance of {@link ExceptionBean }
      * 
      */
-    public NullFieldExceptionBean createNullFieldExceptionBean() {
-        return new NullFieldExceptionBean();
+    public ExceptionBean createExceptionBean() {
+        return new ExceptionBean();
     }
 
     /**
@@ -124,14 +125,6 @@ public class ObjectFactory {
      */
     public DeletePersonResponse createDeletePersonResponse() {
         return new DeletePersonResponse();
-    }
-
-    /**
-     * Create an instance of {@link InvalidDateFormatExceptionBean }
-     * 
-     */
-    public InvalidDateFormatExceptionBean createInvalidDateFormatExceptionBean() {
-        return new InvalidDateFormatExceptionBean();
     }
 
     /**
@@ -203,12 +196,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link NullFieldExceptionBean }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExceptionBean }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://soap.ifmo.makhnovetc.com/", name = "NullFieldException")
-    public JAXBElement<NullFieldExceptionBean> createNullFieldException(NullFieldExceptionBean value) {
-        return new JAXBElement<NullFieldExceptionBean>(_NullFieldException_QNAME, NullFieldExceptionBean.class, null, value);
+    public JAXBElement<ExceptionBean> createNullFieldException(ExceptionBean value) {
+        return new JAXBElement<ExceptionBean>(_NullFieldException_QNAME, ExceptionBean.class, null, value);
     }
 
     /**
@@ -230,12 +223,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InvalidDateFormatExceptionBean }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExceptionBean }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://soap.ifmo.makhnovetc.com/", name = "InvalidDateFormatException")
-    public JAXBElement<InvalidDateFormatExceptionBean> createInvalidDateFormatException(InvalidDateFormatExceptionBean value) {
-        return new JAXBElement<InvalidDateFormatExceptionBean>(_InvalidDateFormatException_QNAME, InvalidDateFormatExceptionBean.class, null, value);
+    public JAXBElement<ExceptionBean> createInvalidDateFormatException(ExceptionBean value) {
+        return new JAXBElement<ExceptionBean>(_InvalidDateFormatException_QNAME, ExceptionBean.class, null, value);
     }
 
     /**
@@ -281,6 +274,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://soap.ifmo.makhnovetc.com/", name = "getPersonsQueryResponse")
     public JAXBElement<GetPersonsQueryResponse> createGetPersonsQueryResponse(GetPersonsQueryResponse value) {
         return new JAXBElement<GetPersonsQueryResponse>(_GetPersonsQueryResponse_QNAME, GetPersonsQueryResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExceptionBean }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap.ifmo.makhnovetc.com/", name = "InvalidFieldException")
+    public JAXBElement<ExceptionBean> createInvalidFieldException(ExceptionBean value) {
+        return new JAXBElement<ExceptionBean>(_InvalidFieldException_QNAME, ExceptionBean.class, null, value);
     }
 
     /**

@@ -19,14 +19,14 @@ public class NullFieldException
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private NullFieldExceptionBean faultInfo;
+    private ExceptionBean faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public NullFieldException(String message, NullFieldExceptionBean faultInfo) {
+    public NullFieldException(String message, ExceptionBean faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class NullFieldException
      * @param cause
      * @param message
      */
-    public NullFieldException(String message, NullFieldExceptionBean faultInfo, Throwable cause) {
+    public NullFieldException(String message, ExceptionBean faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class NullFieldException
     /**
      * 
      * @return
-     *     returns fault bean: com.makhnovetc.ifmo.soap.lab3.NullFieldExceptionBean
+     *     returns fault bean: com.makhnovetc.ifmo.soap.lab3.ExceptionBean
      */
-    public NullFieldExceptionBean getFaultInfo() {
+    public ExceptionBean getFaultInfo() {
         return faultInfo;
     }
 
