@@ -1,7 +1,5 @@
 package com.makhnovetc.ifmo.soap.client;
-import com.makhnovetc.ifmo.soap.lab2.Person;
-import com.makhnovetc.ifmo.soap.lab2.PersonService;
-import com.makhnovetc.ifmo.soap.lab2.PersonWebService;
+import com.makhnovetc.ifmo.soap.lab3.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 public class WebServiceClient {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InvalidDateFormatException, NullFieldException {
          BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Hello! Check service type: 1-standalone, 2-J2EE");
@@ -62,7 +60,7 @@ public class WebServiceClient {
                 ", surname:" + p.getSurname() + ", dob:" + p.getDob() + ", sex:" + p.getSex());
     }
 
-    private static void findPersons(PersonWebService service, BufferedReader br) throws IOException {
+    private static void findPersons(PersonWebService service, BufferedReader br) throws IOException, InvalidDateFormatException, NullFieldException {
         System.out.println("Please, write your query...");
         System.out.println("id-for column id");
         System.out.println("fn-for column name");
@@ -109,7 +107,7 @@ public class WebServiceClient {
         System.out.println("Total persons: " + persons.size());
     }
 
-    private static void insertPerson(PersonWebService service, BufferedReader br) throws IOException {
+    private static void insertPerson(PersonWebService service, BufferedReader br) throws IOException, NullFieldException {
         boolean test = true;
         while (test) {
             System.out.println("Please, write your query...");
@@ -154,9 +152,8 @@ public class WebServiceClient {
             int id= service.insertPerson(name,middlename,surname,dob,sex);
             System.out.println("id = "+id);
         }
-
     }
-    private static void updatePerson(PersonWebService service, BufferedReader br) throws IOException {
+    private static void updatePerson(PersonWebService service, BufferedReader br) throws IOException, NullFieldException {
         boolean test = true;
         while (test) {
             System.out.println("Please, enter new fields values and the id of the line you want...");
@@ -201,16 +198,22 @@ public class WebServiceClient {
                 System.out.println("name=" + name + " middlename=" + middlename + " surname=" + surname + " dob=" + dob + " sex=" + sex);
                 System.out.println("You did not specify all the options");
             }
-            String status = service.updatePerson(id, name, middlename, surname, dob, sex);
+            String status = updatePerson(service,id,name,middlename,surname,dob,sex);
             System.out.println("status: " + status);
-
         }
     }
-    private static void deletePerson(PersonWebService service, BufferedReader br) throws IOException {
+    public static String updatePerson(PersonWebService service,String id,String name,String middlename,String surname,String dob,String sex) throws NullFieldException {
+        return service.updatePerson(id, name, middlename, surname, dob, sex);
+    }
+    private static void deletePerson(PersonWebService service, BufferedReader br) throws IOException, NullFieldException {
         System.out.println("Please, enter the id of the line you want deleted...");
         String delId = br.readLine();
-        String status = service.deletePerson(delId);
+        String status = deletePerson(service,delId);
         System.out.println("status: " + status);
+    }
+
+    public static String deletePerson(PersonWebService service, String id) throws NullFieldException {
+        return service.deletePerson(id);
     }
 
 
